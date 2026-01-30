@@ -36,6 +36,8 @@ public:
 
     void setLimitedMode(bool is_limited);
     Q_INVOKABLE bool isLimitedMode();
+    // void setSendCanLimited(bool limited);
+    // Q_INVOKABLE bool getSendCanLimited();
     Q_INVOKABLE bool setSendCan(bool sendCan, int id = -1);
     Q_INVOKABLE bool getSendCan();
     Q_INVOKABLE void setCanSendId(unsigned int id);

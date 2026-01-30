@@ -182,6 +182,7 @@ private:
     int mConfigVersion;
     bool mStoreConfigVersion;
     int mUpdateCnt;
+    uint32_t mLastRemoteSignature;
 
     bool almostEqual(float A, float B, float eps);
 
