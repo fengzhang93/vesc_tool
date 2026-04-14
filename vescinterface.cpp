@@ -1493,7 +1493,7 @@ bool VescInterface::fwUpload(QByteArray &newFirmware, bool isBootloader, bool fw
     }
 
     auto writeChunk = [this, &fwdCan](uint32_t addr, QByteArray chunk, bool fwIsLzo, quint16 decompressedLen) {
-        for (int i = 0;i < 3;i++) {
+        for (int i = 0;i < 30;i++) {
             int res = -10;
             QEventLoop loop;
             QTimer timeoutTimer;

@@ -40,6 +40,7 @@ ConfigParams::ConfigParams(QObject *parent) : QObject(parent)
     mConfigVersion = -1;
     mStoreConfigVersion = true;
     mUpdateCnt = 0;
+    mLastRemoteSignature = 0;
 }
 
 void ConfigParams::addParam(const QString &name, ConfigParam param)
@@ -995,7 +996,11 @@ void ConfigParams::clearSerializeOrder()
 
 void ConfigParams::serialize(VByteArray &vb)
 {
-    vb.vbAppendUint32(getSignature());
+    if (mLastRemoteSignature != 0 && mLastRemoteSignature != getSignature()) {
+        vb.vbAppendUint32(mLastRemoteSignature);
+    } else {
+        vb.vbAppendUint32(getSignature());
+    }
 
     for (int i = 0;i < mSerializeOrder.size();i++) {
         getParamSerial(vb, mSerializeOrder.at(i));
@@ -1005,10 +1010,11 @@ void ConfigParams::serialize(VByteArray &vb)
 bool ConfigParams::deSerialize(VByteArray &vb)
 {
     auto signature = vb.vbPopFrontUint32();
+    mLastRemoteSignature = signature;
 
     if (signature != getSignature()) {
         qWarning() << "Invalid signature";
-        return false;
+        // return false;
     }
 
     for (int i = 0;i < mSerializeOrder.size();i++) {

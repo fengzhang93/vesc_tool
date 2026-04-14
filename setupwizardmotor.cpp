@@ -455,6 +455,42 @@ bool SensorsPage::validatePage()
         mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
         break;
 
+    case SetupWizardMotor::Sensor_CustomEncoder:
+        mVesc->mcConfig()->updateParamEnum("m_sensor_port_mode", 12);
+        mVesc->mcConfig()->updateParamEnum("sensor_mode", 0);
+        mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
+        break;
+
+    case SetupWizardMotor::Sensor_DualAS5047:
+        mVesc->mcConfig()->updateParamEnum("m_sensor_port_mode", 13);
+        mVesc->mcConfig()->updateParamEnum("sensor_mode", 0);
+        mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
+        break;
+
+    case SetupWizardMotor::Sensor_DualAS504xCE300:
+        mVesc->mcConfig()->updateParamEnum("m_sensor_port_mode", 14);
+        mVesc->mcConfig()->updateParamEnum("sensor_mode", 0);
+        mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
+        break;
+
+    case SetupWizardMotor::Sensor_CE300:
+        mVesc->mcConfig()->updateParamEnum("m_sensor_port_mode", 15);
+        mVesc->mcConfig()->updateParamEnum("sensor_mode", 0);
+        mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
+        break;
+
+    case SetupWizardMotor::Sensor_KTM5900:
+        mVesc->mcConfig()->updateParamEnum("m_sensor_port_mode", 16);
+        mVesc->mcConfig()->updateParamEnum("sensor_mode", 0);
+        mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
+        break;
+
+    case SetupWizardMotor::Sensor_DualAS504xKTM5900:
+        mVesc->mcConfig()->updateParamEnum("m_sensor_port_mode", 17);
+        mVesc->mcConfig()->updateParamEnum("sensor_mode", 0);
+        mVesc->mcConfig()->updateParamEnum("foc_sensor_mode", 1);
+        break;
+
     default:
         break;
     }
@@ -491,6 +527,15 @@ void SensorsPage::initializePage()
             mSensorMode->addItem("Resolver", SetupWizardMotor::Sensor_Resolver_AD2S1205);
             mSensorMode->addItem("Sin/Cos Encoder", SetupWizardMotor::Sensor_Encoder_SinCos);
             mSensorMode->addItem("BiSS Encoder", SetupWizardMotor::Sensor_EncoderBiSS);
+            
+            if (mVesc->mcConfig()->getParamEnumNames("m_sensor_port_mode").contains("Custom Encoder")) {
+                mSensorMode->addItem("Custom Encoder", SetupWizardMotor::Sensor_CustomEncoder);
+                mSensorMode->addItem("Dual AS5047", SetupWizardMotor::Sensor_DualAS5047);
+                mSensorMode->addItem("Dual AS504x CE300", SetupWizardMotor::Sensor_DualAS504xCE300);
+                mSensorMode->addItem("CE300", SetupWizardMotor::Sensor_CE300);     
+                mSensorMode->addItem("KTM5900", SetupWizardMotor::Sensor_KTM5900); 
+                mSensorMode->addItem("Dual AS504x KTM5900", SetupWizardMotor::Sensor_DualAS504xKTM5900);
+            }
             break;
 
         default:

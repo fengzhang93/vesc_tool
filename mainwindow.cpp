@@ -339,6 +339,8 @@ MainWindow::MainWindow(QWidget *parent) :
         (void)limited;
 
         if (!rx) {
+            mMcConfRead = false;
+            mAppConfRead = false;
             return;
         }
 
